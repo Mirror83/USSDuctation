@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Student(models.Model):
-    reg_no = models.CharField(max_length=10, unique=True, primary_key=True)
+    reg_no = models.CharField(max_length=16, unique=True, primary_key=True)
     name = models.CharField(max_length=100)
     course = models.CharField(max_length=100)
     current_year = models.IntegerField()
