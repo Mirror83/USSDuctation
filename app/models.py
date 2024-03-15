@@ -14,13 +14,21 @@ class Student(models.Model):
     class Meta:
         db_table = 'student'
 
+class CourseInfo(models.Model):
+    course_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.course_name}"
+
+    class Meta:
+        db_table = "course_info"
 
 class Unit_Info(models.Model):
     unit_code = models.CharField(max_length=10, unique=True, primary_key=True)
     unit_name = models.CharField(max_length=100)
     year = models.IntegerField()
     semester = models.IntegerField()
-    course = models.CharField(max_length=100)
+    course = models.ForeignKey(CourseInfo, max_length=100, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.unit_code} - {self.unit_name} - {self.year} - {self.semester} - {self.course}'
@@ -52,3 +60,4 @@ class Student_Finance(models.Model):
 
     class Meta:
         db_table = 'student_finance'
+

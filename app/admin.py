@@ -29,3 +29,10 @@ class StudentFinanceAdmin(admin.ModelAdmin):
     list_display = ['reg_no', 'balance', 'fee', 'date']
     search_fields = ['reg_no', 'balance', 'fee']
     list_filter = ['date']
+
+
+@admin.register(CourseInfo)
+class CourseInfoAdmin(admin.ModelAdmin):
+    list_display = ['course_name']
+    search_fields = ['course_name']
+    list_filter = ['course_name']
