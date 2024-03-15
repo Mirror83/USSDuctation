@@ -26,9 +26,9 @@ class StudentUnitsAdmin(admin.ModelAdmin):
 
 @admin.register(Student_Finance)
 class StudentFinanceAdmin(admin.ModelAdmin):
-    list_display = ['reg_no', 'balance', 'fee', 'date']
+    list_display = ['reg_no', 'balance', 'fee']
     search_fields = ['reg_no', 'balance', 'fee']
-    list_filter = ['date']
+    # list_filter = ['date']
 
 
 @admin.register(CourseInfo)

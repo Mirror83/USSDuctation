@@ -53,10 +53,10 @@ class Student_Finance(models.Model):
     reg_no = models.ForeignKey(Student, on_delete=models.CASCADE)
     balance = models.FloatField()
     fee = models.FloatField()
-    date = models.DateField()
+    # date = models.DateField()
 
     def __str__(self):
-        return f'{self.reg_no} - {self.amount} - {self.date}'
+        return f'{self.reg_no} - {self.balance} - {self.fee}'
 
     class Meta:
         db_table = 'student_finance'
