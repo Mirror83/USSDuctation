@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from rest_framework.views import APIView
-from .models import Student, Student_Finance, Student_Units, Unit_Info
+from .models import Student, Student_Finance, Student_Units, Unit_Info, CourseInfo
 import re
 
 
@@ -11,17 +11,34 @@ class UssdCallback(APIView):
         phone_number = request.POST.get("phoneNumber", None)
         text = request.POST.get("text", "default")
         response = ''
+        student = None
+        print(text)
 
-        if len(text) > 2:
-            text = text.split("*")
+        text = text.split("*")
+        if len(text) > 1:
+            reg_no = text[0]
+            student = Student.objects.get(reg_no=reg_no)
+            current_year = student.current_year
+            current_semester = student.current_semester
+            new_year = current_year + 1
+            new_semester = current_semester
 
-        if text == "":
+            if current_semester == 2:
+                new_semester == 1
+
+            else:
+                new_semester = 2
+            course = CourseInfo.objects.get(course_name=student.course)
+            units = Unit_Info.objects.filter(
+                semester=current_semester, year=current_year, course=course.pk)
+
+        if len(text) == 1 and text[0] == '':
             response = 'CON Welcome to university USSD portal\n'
             response += 'Please enter you registration number to continue (or 0 to exit)'
 
-        elif re.match(r"^[a-zA-Z]{3}\d{3}-\d{4}/\d{4}$", text[0]):
+        elif len(text) == 1 and re.match(r"^[a-zA-Z]{3}\d{3}-\d{4}/\d{4}$", text[0]):
             try:
-                student = Student.objects.get(reg_no=text)
+                student = Student.objects.get(reg_no=text[0])
                 response = f'CON Welcome {student.name}, chose your option:\n'
                 response += '1. Student Finance\n'
                 response += '2. Academics\n'
@@ -60,34 +77,45 @@ class UssdCallback(APIView):
             response += '3. Results\n'
 
         elif text[-1] == '1' and text[-2] == '2' and len(text) == 3:
-            current_year = student.current_year
-            current_semester = student.current_semester
-
-            new_year = current_year + 1
-
-            if current_semester == 2:
-                new_semester == 1
-
-            else:
-                new_semester = 2
-
-            response += 'CON Would you like to report for year {} semester {}?'.format(
+            response += 'CON Would you like to report for year {} semester {}?\n'.format(
                 new_year, new_semester)
             response += '1. Yes\n'
-            response += '2. No\n'
+            response += '0. No\n'
+
+        elif len(text) == 4 and text[-1] == '1' and text[-2] == '1' and text[-3] == '2':
+            student.current_semester = new_semester
+            student.current_year = new_year
+            student.save()
+
+            response = 'END You have successfully reported for the year {} semester {}?\n'.format(
+                new_year, new_semester)
 
         elif text[-1] == '2' and text[-2] == '2' and len(text) == 3:
-            reponse = 'CON These are the current units for this session\n'
-            units = Student_Units.objects.filter(
-                reg_no=student, unit_code__year=current_year, unit_code__semester=current_semester)
+            response = 'CON These are the current units for this session\n'
+            print(current_year)
+            print(current_semester)
 
             for unit in units:
-                response += f'{unit.unit_code.unit_name} - {unit.unit_code.unit_code}\n'
+                response += f'{unit.unit_code} - {unit.unit_name}\n'
+            response += '1. Register\n'
+            response += '0. Exit'
+
+        elif len(text) == 4 and text[-1] == '1' and text[-2] == '2' and text[-3] == '2':
+            for unit in units:
+                student_unit = Student_Units.objects.create(
+                    reg_no=student.pk, unit_code=unit.pk)
+                student_unit.save()
+
+            response = 'END You have successfully registered for year {} semister {} units'.format(
+                current_year, current_semester)
 
         elif text[-1] == '2' and text[-2] == '3' and len(text) == 3:
-            response = 'END An sms with you previous exam results will be sent to you'
+            response = 'END An sms with your previous exam results will be sent to you'
 
         elif text[-1] == '3' and len(text) == 2:
             response = 'CON Feedback\nEnter your message'
+
+        elif text[-1] == '0':
+            response = 'END Thank you for using our service'
 
         return HttpResponse(response, content_type='text/plain')
