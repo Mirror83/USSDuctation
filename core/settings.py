@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-$$vegla3j($1hwiup-&nz9b5s4dn+62$kk+p)s74j&1kn9=^*c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
