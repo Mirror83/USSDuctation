@@ -1,0 +1,38 @@
+[
+{
+  "model": "app.student_units",
+  "pk": 1,
+  "fields": {
+    "reg_no": "SCT211-0555/2018",
+    "unit_code": "HRD 2103",
+    "result": "A"
+  }
+},
+{
+  "model": "app.student_units",
+  "pk": 2,
+  "fields": {
+    "reg_no": "SCT211-0555/2018",
+    "unit_code": "SMA 2343",
+    "result": "C"
+  }
+},
+{
+  "model": "app.student_units",
+  "pk": 3,
+  "fields": {
+    "reg_no": "SCT211-0555/2018",
+    "unit_code": "ICS 2300",
+    "result": "A"
+  }
+},
+{
+  "model": "app.student_units",
+  "pk": 4,
+  "fields": {
+    "reg_no": "SCT211-0555/2018",
+    "unit_code": "ICS 2305",
+    "result": "A"
+  }
+}
+]

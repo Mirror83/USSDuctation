@@ -1,0 +1,9 @@
+[
+{
+  "model": "app.courseinfo",
+  "pk": 1,
+  "fields": {
+    "course_name": "Computer Science"
+  }
+}
+]

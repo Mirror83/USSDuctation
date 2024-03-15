@@ -1,0 +1,12 @@
+[
+{
+  "model": "app.student",
+  "pk": "SCT211-0555/2018",
+  "fields": {
+    "name": "Raphael Ndonga",
+    "course": "Computer Science",
+    "current_year": 4,
+    "current_semester": 2
+  }
+}
+]

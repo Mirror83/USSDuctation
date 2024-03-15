@@ -1,0 +1,11 @@
+[
+{
+  "model": "app.student_finance",
+  "pk": 1,
+  "fields": {
+    "reg_no": "SCT211-0555/2018",
+    "balance": 10000.0,
+    "fee": 50000.0
+  }
+}
+]

@@ -1,0 +1,42 @@
+[
+{
+  "model": "app.unit_info",
+  "pk": "HRD 2103",
+  "fields": {
+    "unit_name": "General Economics",
+    "year": 3,
+    "semester": 1,
+    "course": 1
+  }
+},
+{
+  "model": "app.unit_info",
+  "pk": "ICS 2300",
+  "fields": {
+    "unit_name": "Abstract Data Types",
+    "year": 3,
+    "semester": 1,
+    "course": 1
+  }
+},
+{
+  "model": "app.unit_info",
+  "pk": "ICS 2305",
+  "fields": {
+    "unit_name": "Systems Programming",
+    "year": 3,
+    "semester": 1,
+    "course": 1
+  }
+},
+{
+  "model": "app.unit_info",
+  "pk": "SMA 2343",
+  "fields": {
+    "unit_name": "Operations Research",
+    "year": 3,
+    "semester": 1,
+    "course": 1
+  }
+}
+]
